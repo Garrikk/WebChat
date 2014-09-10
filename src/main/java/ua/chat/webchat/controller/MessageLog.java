@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package ua.chat.webchat.controller;
 
@@ -12,70 +12,54 @@ import javax.servlet.annotation.WebServlet;
 import ua.chat.webchat.core.*;
 
 @WebServlet(name = "MessageLog", urlPatterns = {"/MessageLog"})
-public class MessageLog extends HttpServlet
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8801342575055798322L;
+public class MessageLog extends HttpServlet {
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException 
-	{
-		PrintWriter out = response.getWriter();
+    private static final long serialVersionUID = -8801342575055798322L;
 
-	    out.println("<ul id=\"chatLog\">");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
 
-	    Chat chat = new Chat();
-		ChatMessage[] messages = chat.getAllMessages();
+        out.println("<ul id=\"chatLog\">");
 
-		boolean isYou = false;
-		String name = "";
-	
-		for( int i = 0; i < messages.length; i++) 
-		{ 
+        Chat chat = new Chat();
+        ChatMessage[] messages = chat.getAllMessages();
+
+        boolean isYou = false;
+        String name = "";
+
+        for (int i = 0; i < messages.length; i++) {
 			// attributes are not working in GET method.
-			// there is a chanse to add another custom servlet class as this
-			// and implement POST method in it to use request.getAttribute("Username") there...
-			isYou = false; //request.getAttribute("Username").equals(messages[i].author.nickname);
-			
-			if(isYou)
-			{
-				name = "<b>" + messages[i].author.nickname + " (you)" +"</b>";
-			}
-			else
-			{
-				name = messages[i].author.nickname;
-			}
-			
-			
-			
-			out.println("<li>" 
-							+ "[" + DateFormat.getDateTimeInstance().format(messages[i].timestamp)
-							+ "]" + name + ": "
-							+ messages[i].text
-						+ "</li>");
-		} 
+            // there is a chanse to add another custom servlet class as this
+            // and implement POST method in it to use request.getAttribute("Username") there...
+            isYou = false; //request.getAttribute("Username").equals(messages[i].author.nickname);
 
-	    
-	    out.println("</ul>");
-	    out.close();
-	}
+            if (isYou) {
+                name = "<b>" + messages[i].author.nickname + " (you)" + "</b>";
+            } else {
+                name = messages[i].author.nickname;
+            }
 
-	/**
-	 * 
-	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-		throws ServletException, IOException
-	{
-		Chat chat = new Chat();
-		
-		String nickname = request.getParameter("nickname").toLowerCase();
-		String message = request.getParameter("outcomingmess");
-		
-		chat.postMessage(message, nickname);
-	}
+            out.println("<li>"
+                    + "[" + DateFormat.getDateTimeInstance().format(messages[i].timestamp)
+                    + "]" + name + ": "
+                    + messages[i].text
+                    + "</li>");
+        }
+
+        out.println("</ul>");
+        out.close();
+    }
+
+    /**
+     *
+     */
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Chat chat = new Chat();
+
+        String nickname = request.getParameter("nickname").toLowerCase();
+        String message = request.getParameter("outcomingmess");
+        chat.postMessage(message, nickname);
+    }
 }
