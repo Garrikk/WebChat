@@ -16,6 +16,7 @@ public class MessageLog extends HttpServlet {
 
     private static final long serialVersionUID = -8801342575055798322L;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
@@ -51,9 +52,7 @@ public class MessageLog extends HttpServlet {
         out.close();
     }
 
-    /**
-     *
-     */
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Chat chat = new Chat();

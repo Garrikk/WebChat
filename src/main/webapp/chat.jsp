@@ -25,10 +25,16 @@
 
                 // download all chat messages
                 DownloadMessages();
+                DownloadUsers();
 
                 // attach timer to periodicaly downloading all chat messages
-                $(document).everyTime("5s", function () {
+                $(document).everyTime("1s", function () {
                     DownloadMessages();
+                }, 0);
+
+                // attach timer to periodicaly downloading all chat messages
+                $(document).everyTime("30s", function () {
+                    DownloadUsers();
                 }, 0);
             });
 
@@ -46,6 +52,28 @@
 
                         // scroll to the bottom of the messages
                         $("#logContainer").attr({scrollTop: $("#logContainer").attr("scrollHeight")});
+
+                        // scroll with animation of the messages
+                        //$('#logContainer').animate({ scrollTop: $("#logContainer").attr("scrollHeight") }, 1000);
+                    });
+
+                    isAlreadyDownloading = false;
+                }
+            }
+
+            function DownloadUsers() {
+                if (!isAlreadyDownloading)
+                {
+                    isAlreadyDownloading = true;
+
+                    // downloading all chat messages
+                    $.get('UserLog', function (data) {
+
+                        // replace current chat messages with just downloaded
+                        $('#userlist').html(data);
+
+                        // scroll to the bottom of the messages
+                        //$("#userlist").attr({scrollTop: $("#userlist").attr("scrollHeight")});
 
                         // scroll with animation of the messages
                         //$('#logContainer').animate({ scrollTop: $("#logContainer").attr("scrollHeight") }, 1000);
@@ -90,52 +118,14 @@
                     <td width="600px">
                         <div id="logContainer" style="height:300px; overflow-y:scroll;">
                             <ul id="chatLog">
-                                <!--
-                                <%
-                                    ChatMessage[] messages = (ChatMessage[]) request.getAttribute("AllMessages");
-                                    boolean isYou = false;
-                                    String name = "";
-
-                                    for (int i = 0; i < messages.length; i++) {
-                                        isYou = request.getAttribute("Username").equals(messages[i].author.nickname);
-
-                                        if (isYou) {
-                                            name = "<b>" + messages[i].author.nickname + " (you)" + "</b>";
-                                        } else {
-                                            name = messages[i].author.nickname;
-                                        }
-
-                                        out.println("<li>"
-                                                + "[" + DateFormat.getDateTimeInstance().format(messages[i].timestamp)
-                                                + "]" + name + ": "
-                                                + messages[i].text
-                                                + "</li>");
-                                    }
-                                %>
-                                -->
                             </ul>
                         </div>
                     </td>
-                    <td class="userlist" rowspan="2" width="150px">
-                        <ul>
-                            <%
-                                ChatPerson[] users = (ChatPerson[]) request.getAttribute("UserList");
-                                String sYou = "";
-                                String nick = "";
-
-                                for (int i = 0; i < users.length; i++) {
-                                    isYou = request.getAttribute("Username").equals(users[i].nickname);
-
-                                    if (isYou) {
-                                        nick = "<b>" + users[i].nickname + " (you)" + "</b>";
-                                    } else {
-                                        nick = users[i].nickname;
-                                    }
-
-                                    out.println("<li>" + nick + "</li>");
-                                }
-                            %>
-                        </ul>
+                    <td width="150px">
+                        <div id="userlist">
+                            <ul id="userLog">
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 <tr>
