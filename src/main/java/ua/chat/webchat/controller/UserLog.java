@@ -31,7 +31,13 @@ public class UserLog extends HttpServlet {
             ChatPerson[] users = chat.getOnlineUsers();
 
             for (int i = 0; i < users.length; i++) {
-                out.println("<li>" + users[i].nickname + "</li>");
+                HttpSession session = request.getSession();
+
+                if (session.getAttribute("user").equals(users[i].nickname)) {
+                    out.println("<li>" + "<b>" + users[i].nickname + "(you)" + "</b>" + "</li>");
+                } else {
+                    out.println("<li>" + users[i].nickname + "</li>");
+                }
             }
             out.println("</ul>");
             out.close();

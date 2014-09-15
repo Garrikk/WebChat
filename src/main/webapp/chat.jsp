@@ -111,5 +111,6 @@
             <input type="hidden" id="nickname" name="nickname" value=<%= request.getAttribute("Username")%>>
             <input type="hidden" id="password" name="password" value=<%= request.getAttribute("Password")%>>
         </form>
+        <% session.setAttribute("user", request.getAttribute("Username")); %>
     </body>
 </html>
