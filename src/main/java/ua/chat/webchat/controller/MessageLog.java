@@ -26,15 +26,10 @@ public class MessageLog extends HttpServlet {
         Chat chat = new Chat();
         ChatMessage[] messages = chat.getAllMessages();
 
-        boolean isYou = false;
-        String name = "";
-
         for (int i = 0; i < messages.length; i++) {
 
-            out.println("<li>"
-                    + "[" + DateFormat.getDateTimeInstance().format(messages[i].timestamp)
-                    + "]" + messages[i].author.nickname + ": "
-                    + messages[i].text
+            out.println("<li>" + "[" + DateFormat.getDateTimeInstance().format(messages[i].timestamp)
+                    + "]" + messages[i].author.nickname + ": " + messages[i].text
                     + "</li>");
         }
 
