@@ -30,20 +30,10 @@ public class MessageLog extends HttpServlet {
         String name = "";
 
         for (int i = 0; i < messages.length; i++) {
-			// attributes are not working in GET method.
-            // there is a chanse to add another custom servlet class as this
-            // and implement POST method in it to use request.getAttribute("Username") there...
-            isYou = false; //request.getAttribute("Username").equals(messages[i].author.nickname);
-
-            if (isYou) {
-                name = "<b>" + messages[i].author.nickname + " (you)" + "</b>";
-            } else {
-                name = messages[i].author.nickname;
-            }
 
             out.println("<li>"
                     + "[" + DateFormat.getDateTimeInstance().format(messages[i].timestamp)
-                    + "]" + name + ": "
+                    + "]" + messages[i].author.nickname + ": "
                     + messages[i].text
                     + "</li>");
         }

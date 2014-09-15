@@ -88,6 +88,7 @@ public class Controller extends HttpServlet {
             }
             if (isLogoutEvent == true) {
                 chat.logout(nickname, password);
+                request.getRequestDispatcher("/login.jsp").forward(request, response);
             }
         }
     }
