@@ -32,7 +32,7 @@
                     DownloadMessages();
                 }, 0);
 
-                // attach timer to periodicaly downloading all chat messages
+                // attach timer to periodicaly downloading all users
                 $(document).everyTime("30s", function () {
                     DownloadUsers();
                 }, 0);
