@@ -16,10 +16,6 @@ import javax.servlet.http.HttpSession;
 import ua.chat.webchat.core.Chat;
 import ua.chat.webchat.core.ChatPerson;
 
-/**
- *
- * @author admin
- */
 @WebServlet(name = "UserLog", urlPatterns = {"/UserLog"})
 public class UserLog extends HttpServlet {
 
@@ -46,11 +42,5 @@ public class UserLog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Chat chat = new Chat();
-
-        String nickname = request.getParameter("nickname").toLowerCase();
-        String message = request.getParameter("outcomingmess");
-        chat.postMessage(message, nickname);
     }
-
 }

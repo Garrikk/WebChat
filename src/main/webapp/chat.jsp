@@ -15,46 +15,33 @@
         <script type="text/javascript">
             var isAlreadyDownloading = false;
 
-            // document "onLoaded" handler
             $(document).ready(function () {
 
-                // attach "onClick" handler to "Send" button
                 $('#btnSend').click(function () {
                     SendMessage($(this).val());
                 });
 
-                // download all chat messages
                 DownloadMessages();
                 DownloadUsers();
 
-                // attach timer to periodicaly downloading all chat messages
                 $(document).everyTime("1s", function () {
                     DownloadMessages();
                 }, 0);
 
-                // attach timer to periodicaly downloading all users
                 $(document).everyTime("30s", function () {
                     DownloadUsers();
                 }, 0);
             });
 
-            // download chat messages from server
             function DownloadMessages() {
                 if (!isAlreadyDownloading)
                 {
                     isAlreadyDownloading = true;
 
-                    // downloading all chat messages
                     $.get('MessageLog', function (data) {
 
-                        // replace current chat messages with just downloaded
                         $('#logContainer').html(data);
-
-                        // scroll to the bottom of the messages
                         $("#logContainer").attr({scrollTop: $("#logContainer").attr("scrollHeight")});
-
-                        // scroll with animation of the messages
-                        //$('#logContainer').animate({ scrollTop: $("#logContainer").attr("scrollHeight") }, 1000);
                     });
 
                     isAlreadyDownloading = false;
@@ -66,24 +53,14 @@
                 {
                     isAlreadyDownloading = true;
 
-                    // downloading all chat messages
                     $.get('UserLog', function (data) {
-
-                        // replace current chat messages with just downloaded
                         $('#userlist').html(data);
-
-                        // scroll to the bottom of the messages
-                        //$("#userlist").attr({scrollTop: $("#userlist").attr("scrollHeight")});
-
-                        // scroll with animation of the messages
-                        //$('#logContainer').animate({ scrollTop: $("#logContainer").attr("scrollHeight") }, 1000);
                     });
 
                     isAlreadyDownloading = false;
                 }
             }
 
-            // send message to server
             function SendMessage(str) {
 
 
@@ -92,19 +69,10 @@
 
                 if (er == qr) {
                 } else {
-                    // disable send button
                     $('#btnSend').attr('disabled', 'disabled'); // To disable
-
-                    // sending message
                     $.post('MessageLog', $('#chat').serialize(), function (data) {
-
-                        // clearing outcoming message
                         $('#outcomingmess').val("");
-
-                        // load all chat messages
                         DownloadMessages();
-
-                        // enable send button		
                         $('#btnSend').removeAttr('disabled'); // To enable
                     });
                 }
