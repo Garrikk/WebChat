@@ -29,7 +29,7 @@ public class Controller extends HttpServlet {
         String nickname = request.getParameter("nickname").toLowerCase();
         String password = request.getParameter("password");
 
-        if (nickname == "" || password == "") {
+        if (nickname.isEmpty() || password.isEmpty()) {
             String errorString = "You should fill in both values - nickname and password.";
             request.setAttribute("IsNoAllowed", errorString);
             request.getRequestDispatcher("/login.jsp").forward(request, response);

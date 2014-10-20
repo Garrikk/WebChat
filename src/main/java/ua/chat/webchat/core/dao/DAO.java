@@ -18,7 +18,7 @@ public class DAO
 {
 	/** Singleton instance */
 	private static final DAO instance = new DAO();
-	private static final boolean NO = false;
+//	private static final boolean NO = false;
 	private static final int SUCCESS = 0;
 	private static final int FAILING = -1;
 	
@@ -350,7 +350,7 @@ public class DAO
 			
 			boolean isUserFound = result.next();
 			
-			if(isUserFound == NO)
+			if(!(isUserFound))
 			{
 				loginRes = FAILING;
 			}
@@ -391,7 +391,7 @@ public class DAO
 			
 			boolean isUserFound = result.next();
 			
-			if(isUserFound == NO)
+			if(!(isUserFound))
 			{
 				ChatPerson author = new ChatPerson(nickname, passwd, true, 0);
 				
