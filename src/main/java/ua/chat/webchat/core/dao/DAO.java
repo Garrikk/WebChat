@@ -1,5 +1,7 @@
-package ua.chat.webchat.core;
+package ua.chat.webchat.core.dao;
 
+import ua.chat.webchat.core.entity.ChatMessage;
+import ua.chat.webchat.core.entity.ChatPerson;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,10 +14,10 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class DataAccessLayer 
+public class DAO 
 {
 	/** Singleton instance */
-	private static final DataAccessLayer instance = new DataAccessLayer();
+	private static final DAO instance = new DAO();
 	private static final boolean NO = false;
 	private static final int SUCCESS = 0;
 	private static final int FAILING = -1;
@@ -30,14 +32,14 @@ public class DataAccessLayer
 	public Statement statement = null;
 	
 	
-	public DataAccessLayer()
+	public DAO()
 	{}
 	
 	/** Singleton instance getter 
 	 * This method returns the unique instance
 	 * @return the unique instance
 	 */
-	public static final DataAccessLayer getInstance() 
+	public static final DAO getInstance() 
 	{
 		return instance;
 	}	

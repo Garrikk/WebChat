@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import ua.chat.webchat.core.Chat;
-import ua.chat.webchat.core.ChatPerson;
+import ua.chat.webchat.core.service.ChatServiceImpl;
+import ua.chat.webchat.core.entity.ChatPerson;
 
 @WebServlet(name = "UserLog", urlPatterns = {"/UserLog"})
 public class UserLog extends HttpServlet {
@@ -27,7 +27,7 @@ public class UserLog extends HttpServlet {
 
             out.println("<ul id=\"userLog\">");
 
-            Chat chat = new Chat();
+            ChatServiceImpl chat = new ChatServiceImpl();
             ChatPerson[] users = chat.getOnlineUsers();
 
             for (int i = 0; i < users.length; i++) {

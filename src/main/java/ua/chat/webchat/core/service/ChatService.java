@@ -1,7 +1,7 @@
-package ua.chat.webchat.service;
+package ua.chat.webchat.core.service;
 
-import ua.chat.webchat.core.ChatMessage;
-import ua.chat.webchat.core.ChatPerson;
+import ua.chat.webchat.core.entity.ChatMessage;
+import ua.chat.webchat.core.entity.ChatPerson;
 
 public interface ChatService 
 {

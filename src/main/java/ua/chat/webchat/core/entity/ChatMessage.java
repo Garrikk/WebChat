@@ -1,4 +1,4 @@
-package ua.chat.webchat.core;
+package ua.chat.webchat.core.entity;
 
 import java.util.Date;
 

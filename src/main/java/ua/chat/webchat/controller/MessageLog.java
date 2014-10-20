@@ -3,13 +3,14 @@
  */
 package ua.chat.webchat.controller;
 
+import ua.chat.webchat.core.entity.ChatMessage;
+import ua.chat.webchat.core.service.ChatServiceImpl;
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import javax.servlet.annotation.WebServlet;
-import ua.chat.webchat.core.*;
 
 @WebServlet(name = "MessageLog", urlPatterns = {"/MessageLog"})
 public class MessageLog extends HttpServlet {
@@ -23,7 +24,7 @@ public class MessageLog extends HttpServlet {
 
         out.println("<ul id=\"chatLog\">");
 
-        Chat chat = new Chat();
+        ChatServiceImpl chat = new ChatServiceImpl();
         ChatMessage[] messages = chat.getAllMessages();
 
         for (int i = 0; i < messages.length; i++) {
@@ -40,7 +41,7 @@ public class MessageLog extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Chat chat = new Chat();
+        ChatServiceImpl chat = new ChatServiceImpl();
 
         String nickname = request.getParameter("nickname").toLowerCase();
         String message = request.getParameter("outcomingmess");

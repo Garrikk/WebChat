@@ -6,7 +6,7 @@ import javax.servlet.http.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 
-import ua.chat.webchat.core.Chat;
+import ua.chat.webchat.core.service.ChatServiceImpl;
 
 @WebServlet(name = "Controller", urlPatterns = {"/Controller"})
 public class Controller extends HttpServlet {
@@ -43,7 +43,7 @@ public class Controller extends HttpServlet {
             boolean isSendEvent = parameters.containsKey("btnSend");
             boolean isLogoutEvent = parameters.containsKey("btnLogout");
 
-            Chat chat = new Chat();
+            ChatServiceImpl chat = new ChatServiceImpl();
 
             if (isLoginEvent == true) {
                 int result = chat.login(nickname, password);
